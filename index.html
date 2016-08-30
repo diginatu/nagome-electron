@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Nagome</title>
+  </head>
+  <body>
+    <label for="Broad_ID">Broad ID</label><input type="text" name="Broad_ID" value="" id="Broad_ID">
+    <button onclick='r.connect(document.getElementById("Broad_ID").value);'>Receive</button>
+    <br>
+    <div id="holder">
+      <div>
+        <table id="comment_tb" border="1">
+          <tr>
+            <th>No.</th><th>User</th><th>Comment</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script>
+// You can also require other files to run in this process
+var r = require('./renderer.js');
+  </script>
+</html>

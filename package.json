@@ -1,0 +1,28 @@
+{
+  "name": "nagome-electron",
+  "version": "0.0.0",
+  "description": "Electron implementation of Nagome which is NicoNama comment viewer",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diginatu/nagome-electron.git"
+  },
+  "keywords": [
+    "comment viewer",
+    "Nagome",
+    "NicoNama",
+    "Electron"
+  ],
+  "author": "Diginatu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/electron/electron-quick-start/issues"
+  },
+  "homepage": "https://github.com/diginatu/nagome-electron",
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.0"
+  }
+}
