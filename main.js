@@ -3,20 +3,25 @@ const electron = require('electron');
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+const storage = require('electron-json-storage');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 // Nagome process
 let nagome;
-
+// buffer for input from Nagome
 let nagomebuf = '';
+let config;
+
 
 function createWindow () {
     mainWindow = new BrowserWindow({width: 800, height: 600});
     mainWindow.loadURL(`file://${__dirname}/index.html`);
     mainWindow.on('closed', () => {
-        nagome.stdin.end();
+        if (nagome !== undefined) {
+            nagome.stdin.end();
+        }
 
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
@@ -27,6 +32,7 @@ function createWindow () {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
+    saveConfig();
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
@@ -42,9 +48,34 @@ app.on('activate', () => {
     }
 });
 
+function loadConfigAndRunNagome() {
+    storage.get('config', (err, data) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        config = data;
+        console.log(config);
+
+        runNagome();
+    });
+}
+
+function saveConfig() {
+    storage.set('config', config, (err) => {
+        console.log(err);
+    });
+}
+
 function runNagome() {
     const spawn = require('child_process').spawn;
-    nagome = spawn('nagome', ['--dbgtostd']);
+
+    console.log(config);
+    if (config.nagomePath === undefined) {
+        config.nagomePath = './nagome';
+    }
+    nagome = spawn('./nagome', ['--dbgtostd']);
 
 
     nagome.stdout.on('data', (data) => {
@@ -60,7 +91,7 @@ function runNagome() {
             var mes = JSON.parse(mess);
             //console.log(mes);
 
-            if (mes.domain == 'nagome_comment' && mes.command == 'Comment.Got') {
+            if (mes.domain === 'nagome_comment' && mes.command === 'Comment.Got') {
                 mainWindow.webContents.send('addComment','<td>' + mes.content.No + '</td><td>' +
                         mes.content.UserID + '</td><td>' + mes.content.Comment + '</td>');
             }
@@ -87,12 +118,16 @@ function runNagome() {
     });
 }
 
+// main
+
 app.on('ready', () => {
     createWindow();
 
-    runNagome();
+    loadConfigAndRunNagome();
 });
 
+
+// exports
 
 exports.nagomeWrite = (s) => {
     nagome.stdin.write(s);
