@@ -1,7 +1,7 @@
 {
   "name": "nagome-electron",
   "version": "0.0.0",
-  "description": "Electron implementation of Nagome which is NicoNama comment viewer",
+  "description": "Electron UI plugin of Nagome which is NicoNama comment viewer",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
