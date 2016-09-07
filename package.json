@@ -26,6 +26,7 @@
     "electron-prebuilt": "^1.2.0"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "electron-json-storage": "^2.0.0"
   }
 }

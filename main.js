@@ -14,7 +14,6 @@ let nagome;
 let nagomebuf = '';
 let config;
 
-
 function createWindow () {
     mainWindow = new BrowserWindow({width: 800, height: 600});
     mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -71,29 +70,47 @@ function saveConfig() {
 function runNagome() {
     const spawn = require('child_process').spawn;
 
-    console.log(config);
     if (config.nagomePath === undefined) {
         config.nagomePath = './nagome';
     }
-    nagome = spawn('./nagome', ['--dbgtostd']);
-
+    nagome = spawn(config.nagomePath, ['--dbgtostd']);
 
     nagome.stdout.on('data', (data) => {
+        // join and process messages 
         nagomebuf += data.toString();
         for (;;) {
             if (nagomebuf === '' || nagomebuf === '\n' || nagomebuf.indexOf('\n') === -1) {
                 break;
             }
-            var spmes = nagomebuf.split('\n', 2);
-            var mess = spmes[0];
+            let spmes = nagomebuf.split('\n', 2);
+            let mess = spmes[0];
 
             nagomebuf = nagomebuf.substring(mess.length + 1);
-            var mes = JSON.parse(mess);
-            //console.log(mes);
+            let mes = JSON.parse(mess);
 
-            if (mes.domain === 'nagome_comment' && mes.command === 'Comment.Got') {
-                mainWindow.webContents.send('addComment','<td>' + mes.content.No + '</td><td>' +
-                        mes.content.UserID + '</td><td>' + mes.content.Comment + '</td>');
+            switch (mes.domain) {
+            case 'nagome_comment':
+                if (mes.command === 'Comment.Got') {
+                    mainWindow.webContents.send('addComment',
+                                `<td>${mes.content.No}</td><td>${mes.content.UserID}</td><td>${mes.content.Comment}</td>`);
+                }
+                break;
+
+            case 'nagome':
+                switch (mes.command) {
+                case 'Nagome.BroadInfo':
+
+                    break;
+
+                default:
+
+                }
+
+                break;
+
+
+            default:
+                console.log(mes);
             }
         }
 
@@ -121,9 +138,8 @@ function runNagome() {
 // main
 
 app.on('ready', () => {
-    createWindow();
-
     loadConfigAndRunNagome();
+    createWindow();
 });
 
 

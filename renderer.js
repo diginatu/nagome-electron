@@ -5,42 +5,47 @@ const electron = require('electron');
 
 // Drag Event
 // Disable document Drag
-document.ondragover = document.ondrop = function(e) {
-    e.preventDefault(); // イベントの伝搬を止めて、アプリケーションのHTMLとファイルが差し替わらないようにする
-    return false;
-};
-var holder = document.getElementById('holder');
-/** hoverエリアにドラッグされた場合 */
-holder.ondragover = function () {
-    return false;
-};
-/** hoverエリアから外れた or ドラッグが終了した */
-holder.ondragleave = holder.ondragend = function () {
-    return false;
-};
-/** hoverエリアにドロップされた */
-holder.ondrop = function (e) {
-    e.preventDefault(); // イベントの伝搬を止めて、アプリケーションのHTMLとファイルが差し替わらないようにする
+{
+    document.ondragover = document.ondrop = function(e) {
+        e.preventDefault();
+        return false;
+    };
+    const holder = document.getElementById('holder');
+    holder.ondragover = function () {
+        return false;
+    };
+    holder.ondragleave = holder.ondragend = function () {
+        return false;
+    };
+    holder.ondrop = function (e) {
+        e.preventDefault(); // stop moving page
 
-    var text = e.dataTransfer.getData('Text');
-    console.log(text);
+        var text = e.dataTransfer.getData('Text');
+        console.log(text);
 
-    exports.connect(text);
+        exports.connect(text);
 
-    return false;
-};
+        return false;
+    };
+}
+
+
+// functions for main process
 
 electron.ipcRenderer.on('addComment', (ev, cmm) => {
-    var tr = document.createElement('tr');
+    let tr = document.createElement('tr');
     tr.innerHTML = cmm;
 
-    document.getElementById('comment_tb').appendChild(tr);
+    document.getElementById('comment_tb_body').appendChild(tr);
 });
+
+
+// exports
 
 exports.connect = (id) => {
     const main = electron.remote.require('./main');
 
-    var connectst = {
+    let connectst = {
         'Domain': 'nagome_query',
         'Command': 'Broad.Connect',
         'Content': {

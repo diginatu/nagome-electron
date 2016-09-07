@@ -3,23 +3,37 @@
   <head>
     <meta charset="UTF-8">
     <title>Nagome</title>
+    <link rel="stylesheet" href="./style.css" type="text/css" media="all" />
+
+    <!--bootstrap-->
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" crossorigin="anonymous">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <label for="Broad_ID">Broad ID</label><input type="text" name="Broad_ID" value="" id="Broad_ID">
-    <button onclick='r.connect(document.getElementById("Broad_ID").value);'>Receive</button>
-    <br>
-    <div id="holder">
-      <div>
-        <table id="comment_tb" border="1">
-          <tr>
-            <th>No.</th><th>User</th><th>Comment</th>
-          </tr>
-        </table>
+    <div id="win">
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="Broad_ID">Broad ID</label>
+          <input class="form-control" placeholder="Broad ID, URI" type="text" name="Broad_ID" value="" id="Broad_ID">
+          <button class="btn btn-default" onclick='r.connect(document.getElementById("Broad_ID").value);'>Receive</button>
+        </div>
+      </form>
+      <div id="holder">
+        <div id="comment_scroll">
+          <table class="table table-hover table-condensed" id="comment_tb">
+            <thead id="comment_tb_head">
+              <tr>
+                <th>No.</th><th>User</th><th>Comment</th>
+              </tr>
+            </thead>
+            <tbody id="comment_tb_body">
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </body>
   <script>
-// You can also require other files to run in this process
 var r = require('./renderer.js');
   </script>
 </html>
