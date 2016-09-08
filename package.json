@@ -23,9 +23,9 @@
   },
   "homepage": "https://github.com/diginatu/nagome-electron",
   "devDependencies": {
-    "electron-prebuilt": "^1.2.0"
   },
   "dependencies": {
+    "electron-prebuilt": "^1.2.0",
     "bootstrap": "^3.3.7",
     "electron-json-storage": "^2.0.0"
   }

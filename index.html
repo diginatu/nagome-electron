@@ -17,6 +17,11 @@
           <input class="form-control" placeholder="Broad ID, URI" type="text" name="Broad_ID" value="" id="Broad_ID">
           <button class="btn btn-default" onclick='r.connect(document.getElementById("Broad_ID").value);'>Receive</button>
         </div>
+        <div>
+          audience : <span id="audience"></span>
+          comments : <span id="num_comments"></span>
+          <span id="broad_time"></span>
+        </div>
       </form>
       <div id="holder">
         <div id="comment_scroll">

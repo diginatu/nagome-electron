@@ -99,7 +99,7 @@ function runNagome() {
             case 'nagome':
                 switch (mes.command) {
                 case 'Nagome.BroadInfo':
-
+                    mainWindow.webContents.send('changeStatus', mes.content.WatchCount, mes.content.CommentCount);
                     break;
 
                 default:

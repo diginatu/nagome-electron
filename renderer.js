@@ -21,8 +21,6 @@ const electron = require('electron');
         e.preventDefault(); // stop moving page
 
         var text = e.dataTransfer.getData('Text');
-        console.log(text);
-
         exports.connect(text);
 
         return false;
@@ -39,6 +37,12 @@ electron.ipcRenderer.on('addComment', (ev, cmm) => {
     document.getElementById('comment_tb_body').appendChild(tr);
 });
 
+electron.ipcRenderer.on('changeStatus', (ev, aud, time) => {
+    console.log(aud, time);
+    document.getElementById('audience').innerHTML = aud;
+    document.getElementById('num_comments').innerHTML = time;
+});
+
 
 // exports
 
@@ -52,7 +56,6 @@ exports.connect = (id) => {
             'BroadID': id
         }
     };
-    console.log(connectst);
     main.nagomeWrite(JSON.stringify(connectst));
 };
 
