@@ -15,7 +15,7 @@ let nagomebuf = '';
 let config;
 
 function createWindow () {
-    mainWindow = new BrowserWindow({width: 800, height: 600});
+    mainWindow = new BrowserWindow({width: 800, height: 600, minWidth: 325, minHeight: 100});
     mainWindow.loadURL(`file://${__dirname}/index.html`);
     mainWindow.on('closed', () => {
         if (nagome !== undefined) {

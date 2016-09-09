@@ -27,6 +27,14 @@ const electron = require('electron');
     };
 }
 
+// aujust height of the table
+//window.onresize = () => {
+{
+    const holder = document.getElementById('holder');
+    const head_form_h = document.getElementById('head_form').offsetHeight;
+    holder.style.height = `calc(100% - ${head_form_h}px)`;
+}
+
 
 // functions for main process
 
