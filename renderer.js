@@ -58,10 +58,10 @@ exports.connect = (id) => {
     const main = electron.remote.require('./main');
 
     let connectst = {
-        'Domain': 'nagome_query',
-        'Command': 'Broad.Connect',
-        'Content': {
-            'BroadID': id
+        'domain': 'nagome_query',
+        'command': 'Broad.Connect',
+        'content': {
+            'broad_id': id
         }
     };
     main.nagomeWrite(JSON.stringify(connectst));

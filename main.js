@@ -90,16 +90,16 @@ function runNagome() {
 
             switch (mes.domain) {
             case 'nagome_comment':
-                if (mes.command === 'Comment.Got') {
+                if (mes.command === 'Got') {
                     mainWindow.webContents.send('addComment',
-                                `<td>${mes.content.No}</td><td>${mes.content.UserID}</td><td>${mes.content.Comment}</td>`);
+                                `<td>${mes.content.no}</td><td>${mes.content.user_id}</td><td>${mes.content.comment}</td>`);
                 }
                 break;
 
             case 'nagome':
                 switch (mes.command) {
-                case 'Nagome.BroadInfo':
-                    mainWindow.webContents.send('changeStatus', mes.content.WatchCount, mes.content.CommentCount);
+                case 'Broad.Info':
+                    mainWindow.webContents.send('changeStatus', mes.content.watch_count, mes.content.comment_count);
                     break;
 
                 default:
