@@ -1,150 +1,75 @@
-const electron = require('electron');
+const electron = require('electron')
 // Module to control application life.
-const app = electron.app;
+const app = electron.app
 // Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
-const storage = require('electron-json-storage');
+const BrowserWindow = electron.BrowserWindow
+
+const path = require('path')
+const url = require('url')
+const execFile = require('child_process').execFile;
+const os = require('os');
+
+const isWin = /^win/.test(os.platform());
+const resoucesDir = path.join(__dirname, "resources");
+const nagomeExecFile = path.join(resoucesDir, isWin ? "nagome.exe" : "nagome");
+const serverExecFile = path.join(resoucesDir, isWin ? "server.exe" : "server");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
-// Nagome process
-let nagome;
-// buffer for input from Nagome
-let nagomebuf = '';
-let config;
+let mainWindow
 
 function createWindow () {
-    mainWindow = new BrowserWindow({width: 800, height: 600, minWidth: 325, minHeight: 100});
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
-    mainWindow.on('closed', () => {
-        if (nagome !== undefined) {
-            nagome.stdin.end();
-        }
+    executeNagome();
 
+    // Create the browser window.
+    mainWindow = new BrowserWindow({width: 500, height: 800})
+
+    // and load the index.html of the app.
+    mainWindow.loadURL(url.format({
+        pathname: '/localhost:8753/app/index.html',
+        protocol: 'http:',
+        slashes: true
+    }))
+
+    // Open the DevTools.
+    // mainWindow.webContents.openDevTools()
+
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function () {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
-        mainWindow = null;
+        mainWindow = null
+    })
+}
+
+function executeNagome() {
+    execFile(serverExecFile, (error, stdout, stderr) => {
+        electron.dialog.showErrorBox("Server Error", error?error:"" + stdout + stderr);
     });
 }
 
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.on('ready', createWindow)
+
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
-    saveConfig();
+app.on('window-all-closed', function () {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
-        app.quit();
+        app.quit()
     }
-});
+})
 
-app.on('activate', () => {
+app.on('activate', function () {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) {
-        createWindow();
+        createWindow()
     }
-});
+})
 
-function loadConfigAndRunNagome() {
-    storage.get('config', (err, data) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-
-        config = data;
-        console.log(config);
-
-        runNagome();
-    });
-}
-
-function saveConfig() {
-    storage.set('config', config, (err) => {
-        console.log(err);
-    });
-}
-
-function runNagome() {
-    const spawn = require('child_process').spawn;
-
-    if (config.nagomePath === undefined) {
-        config.nagomePath = './nagome';
-    }
-    nagome = spawn(config.nagomePath, ['--dbgtostd']);
-
-    nagome.stdout.on('data', (data) => {
-        // join and process messages 
-        nagomebuf += data.toString();
-        for (;;) {
-            if (nagomebuf === '' || nagomebuf === '\n' || nagomebuf.indexOf('\n') === -1) {
-                break;
-            }
-            let spmes = nagomebuf.split('\n', 2);
-            let mess = spmes[0];
-
-            nagomebuf = nagomebuf.substring(mess.length + 1);
-            let mes = JSON.parse(mess);
-
-            switch (mes.domain) {
-            case 'nagome_comment':
-                if (mes.command === 'Got') {
-                    mainWindow.webContents.send('addComment',
-                                `<td>${mes.content.no}</td><td>${mes.content.user_id}</td><td>${mes.content.comment}</td>`);
-                }
-                break;
-
-            case 'nagome':
-                switch (mes.command) {
-                case 'Broad.Info':
-                    mainWindow.webContents.send('changeStatus', mes.content.watch_count, mes.content.comment_count);
-                    break;
-
-                default:
-
-                }
-
-                break;
-
-
-            default:
-                console.log(mes);
-            }
-        }
-
-    });
-
-    nagome.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-    });
-
-    nagome.stdout.on('error', (data) => {
-        console.log(`nagome error ${data}`);
-        nagome.stdin.end();
-    });
-    nagome.stdin.on('error', (data) => {
-        console.log(`nagome error ${data}`);
-        nagome.stdin.end();
-    });
-
-    nagome.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
-        app.quit();
-    });
-}
-
-// main
-
-app.on('ready', () => {
-    loadConfigAndRunNagome();
-    createWindow();
-});
-
-
-// exports
-
-exports.nagomeWrite = (s) => {
-    nagome.stdin.write(s);
-};
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.
