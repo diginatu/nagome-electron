@@ -88,6 +88,7 @@
     },
     "license": "MIT",
     "devDependencies": {
+        "download-github-release": "^0.3.2",
         "electron": "~1.7.8",
         "electron-builder": "^19.45.5"
     }
