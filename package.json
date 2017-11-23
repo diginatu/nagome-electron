@@ -1,10 +1,15 @@
 {
-    "name": "nagome-electron-webui",
+    "name": "nagome-electron",
     "version": "0.1.0",
     "description": "Electron packege of Nagome Web UI",
+    "author": {
+        "name": "Diginatu",
+        "email": "diginatu.510o@gmail.com"
+    },
+    "license": "MIT",
     "main": "app/main.js",
     "build": {
-        "appId": "com.diginatu.nagome-webui-electron",
+        "appId": "com.github.diginatu.nagome-electron",
         "files": [
             "app/**/*",
             "node_modules/**/*",
@@ -32,12 +37,6 @@
         "mac": {
             "category": "public.app-category.social-networking",
             "target": [
-                {
-                    "target": "default",
-                    "arch": [
-                        "x64"
-                    ]
-                },
                 {
                     "target": "zip",
                     "arch": [
@@ -73,20 +72,18 @@
     },
     "scripts": {
         "start": "electron .",
-        "release": "electron-builder -wl"
+        "release": "./RELEASE.sh"
     },
-    "repository": "https://github.com/diginatu/nagome-electron",
+    "repository" : {
+        "type": "git",
+        "url": "https://github.com/diginatu/nagome-electron.git"
+    },
     "keywords": [
         "Nagome",
         "Niconico",
         "NicoNama",
         "Comment Viewer"
     ],
-    "author": {
-        "name": "Diginatu",
-        "email": "diginatu.510o@gmail.com"
-    },
-    "license": "MIT",
     "devDependencies": {
         "download-github-release": "^0.3.2",
         "electron": "~1.7.8",
