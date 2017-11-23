@@ -1,35 +1,94 @@
 {
-  "name": "nagome-electron-webui",
-  "version": "0.1.0",
-  "description": "Electron packege of Nagome Web UI",
-  "main": "app/main.js",
-  "build": {
-    "appId": "com.diginatu.nagome-webui-electron",
-    "files": [
-      "app/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
-    "directories": {
-      "buildResources": "resources"
+    "name": "nagome-electron-webui",
+    "version": "0.1.0",
+    "description": "Electron packege of Nagome Web UI",
+    "main": "app/main.js",
+    "build": {
+        "appId": "com.diginatu.nagome-webui-electron",
+        "files": [
+            "app/**/*",
+            "node_modules/**/*",
+            "package.json"
+        ],
+        "directories": {
+            "buildResources": "resources"
+        },
+        "win": {
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64"
+                    ]
+                },
+                {
+                    "target": "portable",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ]
+        },
+        "mac": {
+            "category": "public.app-category.social-networking",
+            "target": [
+                {
+                    "target": "default",
+                    "arch": [
+                        "x64"
+                    ]
+                },
+                {
+                    "target": "zip",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ]
+        },
+        "linux": {
+            "category": "Network",
+            "target": [
+                {
+                    "target": "AppImage",
+                    "arch": [
+                        "x64"
+                    ]
+                },
+                {
+                    "target": "deb",
+                    "arch": [
+                        "x64"
+                    ]
+                },
+                {
+                    "target": "tar.xz",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ]
+        },
+        "publish": null
     },
-    "publish": null
-  },
-  "scripts": {
-    "start": "electron .",
-    "release": "electron-builder"
-  },
-  "repository": "https://github.com/diginatu/nagome-electron",
-  "keywords": [
-    "Nagome",
-    "Niconico",
-    "NicoNama",
-    "Comment Viewer"
-  ],
-  "author": "Diginatu",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "~1.7.8",
-    "electron-builder": "^19.45.5"
-  }
+    "scripts": {
+        "start": "electron .",
+        "release": "electron-builder -wl"
+    },
+    "repository": "https://github.com/diginatu/nagome-electron",
+    "keywords": [
+        "Nagome",
+        "Niconico",
+        "NicoNama",
+        "Comment Viewer"
+    ],
+    "author": {
+        "name": "Diginatu",
+        "email": "diginatu.510o@gmail.com"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "~1.7.8",
+        "electron-builder": "^19.45.5"
+    }
 }
