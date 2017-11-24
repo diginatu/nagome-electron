@@ -16,6 +16,7 @@ $NPMBIN/download-github-release diginatu nagome-webui $TMPDIR
 
 rm -rf $RESOURCEDIR/
 mkdir -p $RESOURCEDIR
+rm -rf ./dist
 cp -r $TMPDIR/app $RESOURCEDIR/webui
 
 for arch in ${ARCHS[@]}; do
