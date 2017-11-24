@@ -30,7 +30,7 @@ for arch in ${ARCHS[@]}; do
     cp -r $TMPDIR/nagome_$arch$appendexe $RESOURCEDIR/nagome$appendexe
     cp -r $TMPDIR/nagome-webapp_server_$arch$appendexe $RESOURCEDIR/server$appendexe
 
-    $NPMBIN/build $osflag $archflag --publish always
+    $NPMBIN/build $osflag $archflag "$@"
 
     rm -f $RESOURCEDIR/nagome $RESOURCEDIR/server
 done

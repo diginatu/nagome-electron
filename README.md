@@ -26,3 +26,8 @@ export GH_TOKEN="..."
 yarn run release
 ```
 
+### Package only
+
+```
+yarn run build
+```

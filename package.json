@@ -75,7 +75,8 @@
     },
     "scripts": {
         "start": "electron .",
-        "release": "./RELEASE.sh"
+        "build": "./RELEASE.sh",
+        "release": "./RELEASE.sh --publish always"
     },
     "repository": {
         "type": "git",
