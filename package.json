@@ -18,6 +18,10 @@
         "directories": {
             "buildResources": "resources"
         },
+        "publish": {
+            "provider": "github",
+            "releaseType": "release"
+        },
         "win": {
             "target": [
                 {
@@ -67,14 +71,13 @@
                     ]
                 }
             ]
-        },
-        "publish": null
+        }
     },
     "scripts": {
         "start": "electron .",
         "release": "./RELEASE.sh"
     },
-    "repository" : {
+    "repository": {
         "type": "git",
         "url": "https://github.com/diginatu/nagome-electron.git"
     },

@@ -10,3 +10,19 @@ This repository packages Nagome Web UI using following repositories.
 * [Nagome Web App Server](https://github.com/diginatu/nagome-webapp_server)
 
 #### License [MIT](LICENSE)
+
+Develop
+-------
+
+```
+yarn
+```
+
+Publish
+-------
+
+```
+export GH_TOKEN="..."
+yarn run release
+```
+
