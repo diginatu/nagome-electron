@@ -10,9 +10,11 @@ NPMBIN=$(yarn bin)
 RESOURCEDIR="./app/resources"
 
 mkdir -p $TMPDIR
-$NPMBIN/download-github-release diginatu nagome $TMPDIR
-$NPMBIN/download-github-release diginatu nagome-webapp_server $TMPDIR
-$NPMBIN/download-github-release diginatu nagome-webui $TMPDIR
+if ! [ -d $TMPDIR ]; then
+    $NPMBIN/download-github-release diginatu nagome $TMPDIR
+    $NPMBIN/download-github-release diginatu nagome-webapp_server $TMPDIR
+    $NPMBIN/download-github-release diginatu nagome-webui $TMPDIR
+fi
 
 rm -rf $RESOURCEDIR/
 mkdir -p $RESOURCEDIR
