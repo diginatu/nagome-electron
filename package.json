@@ -1,6 +1,6 @@
 {
     "name": "nagome-electron",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Electron packege of Nagome Web UI",
     "author": {
         "name": "Diginatu",
@@ -94,6 +94,7 @@
         "electron-builder": "^19.45.5"
     },
     "dependencies": {
+        "electron-log": "^2.2.11",
         "electron-updater": "^2.16.1"
     }
 }

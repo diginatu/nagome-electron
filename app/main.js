@@ -1,5 +1,6 @@
 const autoUpdater = require("electron-updater").autoUpdater
 const electron = require('electron');
+const log = require('electron-log');
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
@@ -14,6 +15,11 @@ const isWin = /^win/.test(os.platform());
 const resoucesDir = path.join(__dirname, "resources");
 const nagomeExecFile = path.join(resoucesDir, isWin ? "nagome.exe" : "nagome");
 const serverExecFile = path.join(resoucesDir, isWin ? "server.exe" : "server");
+
+// Logging
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -52,6 +58,20 @@ function executeNagome() {
         electron.dialog.showErrorBox("Server Error", error?error:"" + stdout + stderr);
     });
 }
+
+// autoUpdater
+autoUpdater.on('checking-for-update', () => {
+  log.info('Checking for update...');
+})
+autoUpdater.on('update-available', (info) => {
+  log.info('Update available.');
+})
+autoUpdater.on('update-not-available', (info) => {
+  log.info('Update not available.');
+})
+autoUpdater.on('error', (err) => {
+  log.info('Error in auto-updater. ' + err);
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
