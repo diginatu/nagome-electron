@@ -54,23 +54,25 @@ function createWindow () {
 let nagomeExec;
 
 function executeNagome() {
-    nagomeExec = execFile(serverExecFile, (error, stdout, stderr) => {
-        electron.dialog.showErrorBox("Server Error", error?error:"" + stdout + stderr);
-    });
+    nagomeExec = execFile(serverExecFile, {cwd: __dirname},
+        (error, stdout, stderr) => {
+            electron.dialog.showErrorBox("Server Error", error?error:"" + stdout + stderr);
+        }
+    );
 }
 
 // autoUpdater
 autoUpdater.on('checking-for-update', () => {
-  log.info('Checking for update...');
+    log.info('Checking for update...');
 })
 autoUpdater.on('update-available', (info) => {
-  log.info('Update available.');
+    log.info('Update available.');
 })
 autoUpdater.on('update-not-available', (info) => {
-  log.info('Update not available.');
+    log.info('Update not available.');
 })
 autoUpdater.on('error', (err) => {
-  log.info('Error in auto-updater. ' + err);
+    log.info('Error in auto-updater. ' + err);
 })
 
 // This method will be called when Electron has finished
@@ -84,6 +86,7 @@ app.on('window-all-closed', function () {
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
         nagomeExec.stdin.end();
+        nagomeExec = null;
         app.quit();
     }
 })
