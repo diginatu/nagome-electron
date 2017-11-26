@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./script/settings.sh
+. ./scripts/settings.sh
 
 if ! [ -d $TMPDIR ]; then
     mkdir -p $TMPDIR
