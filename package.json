@@ -92,5 +92,8 @@
         "download-github-release": "^0.3.2",
         "electron": "~1.7.8",
         "electron-builder": "^19.45.5"
+    },
+    "dependencies": {
+        "electron-updater": "^2.16.1"
     }
 }

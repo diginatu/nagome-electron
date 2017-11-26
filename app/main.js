@@ -1,3 +1,4 @@
+const autoUpdater = require("electron-updater").autoUpdater
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;
@@ -19,6 +20,7 @@ const serverExecFile = path.join(resoucesDir, isWin ? "server.exe" : "server");
 let mainWindow;
 
 function createWindow () {
+    autoUpdater.checkForUpdatesAndNotify();
     executeNagome();
 
     // Create the browser window.
