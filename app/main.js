@@ -5,6 +5,7 @@ const log = require('electron-log');
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+const isDev = require('electron-is-dev');
 
 const path = require('path');
 const url = require('url');
@@ -12,8 +13,8 @@ const execFile = require('child_process').execFile;
 const os = require('os');
 
 const isWin = /^win/.test(os.platform());
-const resoucesDir = path.join(__dirname, "resources");
-const serverExecFile = path.join(resoucesDir, isWin ? "server.exe" : "server");
+const resoucesDir = path.join(__dirname, isDev ? ".." : "../..");
+const serverExecFile = path.join(resoucesDir, "resources", isWin ? "server.exe" : "server");
 
 // Logging
 autoUpdater.logger = log;
@@ -53,7 +54,7 @@ function createWindow () {
 let nagomeExec;
 
 function executeNagome() {
-    nagomeExec = execFile(serverExecFile, {cwd: __dirname},
+    nagomeExec = execFile(serverExecFile, {cwd: resoucesDir},
         (error, stdout, stderr) => {
             electron.dialog.showErrorBox("Server Error", error?error:"" + stdout + stderr);
         }
