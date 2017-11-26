@@ -13,7 +13,6 @@ const os = require('os');
 
 const isWin = /^win/.test(os.platform());
 const resoucesDir = path.join(__dirname, "resources");
-const nagomeExecFile = path.join(resoucesDir, isWin ? "nagome.exe" : "nagome");
 const serverExecFile = path.join(resoucesDir, isWin ? "server.exe" : "server");
 
 // Logging

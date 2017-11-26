@@ -1,11 +1,11 @@
 {
     "port": "8753",
     "root_uri": "http://localhost:8753/app/index.html",
-    "root_dir": "./app/resources/webui",
+    "root_dir": "./resources/webui",
     "nagome_exec": [
-        "./app/resources/nagome",
+        "./resources/nagome",
         "-y",
-        "./app/resources/webui/plugin.yml"
+        "./resources/webui/plugin.yml"
     ],
     "app_mode" : true
 }
