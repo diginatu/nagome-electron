@@ -28,7 +28,9 @@ for arch in ${ARCHS[@]}; do
     echo "Creating release for $arch with falg \"$osflag $archflag\""
 
     cp -r $TMPDIR/nagome_$arch$appendexe $RESOURCEDIR/nagome$appendexe
+    chmod +x $RESOURCEDIR/nagome$appendexe
     cp -r $TMPDIR/nagome-webapp_server_$arch$appendexe $RESOURCEDIR/server$appendexe
+    chmod +x $RESOURCEDIR/server$appendexe
 
     $NPMBIN/build $osflag $archflag "$@"
 
