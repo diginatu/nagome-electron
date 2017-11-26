@@ -9,8 +9,8 @@ TMPDIR="/tmp/nagome_electron_release"
 NPMBIN=$(yarn bin)
 RESOURCEDIR="./app/resources"
 
-mkdir -p $TMPDIR
 if ! [ -d $TMPDIR ]; then
+    mkdir -p $TMPDIR
     $NPMBIN/download-github-release diginatu nagome $TMPDIR
     $NPMBIN/download-github-release diginatu nagome-webapp_server $TMPDIR
     $NPMBIN/download-github-release diginatu nagome-webui $TMPDIR
