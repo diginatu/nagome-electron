@@ -19,8 +19,21 @@
             "buildResources": "resources"
         },
         "extraResources": [
-            "./server_config.json",
-            "./resources/**/*"
+            {
+                "from": "./resources/system/${os}/${arch}",
+                "to": "./extra",
+                "filter": [
+                    "**/*"
+                ]
+            },
+            {
+                "from": "./resources/webui",
+                "to": "./extra/webui",
+                "filter": [
+                    "**/*"
+                ]
+            },
+            "./server_config.json"
         ],
         "publish": {
             "provider": "github",
@@ -79,8 +92,10 @@
     },
     "scripts": {
         "start": "electron .",
-        "build": "./scripts/release.sh",
-        "release": "./scripts/release.sh --publish always"
+        "build-current-dir": "./scripts/release.sh --dir",
+        "build-dir": "./scripts/release.sh -wlm --dir",
+        "build": "./scripts/release.sh -wlm",
+        "release": "./scripts/release.sh -wlm --publish always"
     },
     "repository": {
         "type": "git",

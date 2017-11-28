@@ -13,8 +13,8 @@ const execFile = require('child_process').execFile;
 const os = require('os');
 
 const isWin = /^win/.test(os.platform());
-const resoucesDir = path.join(__dirname, isDev ? ".." : "../..");
-const serverExecFile = path.join(resoucesDir, "resources", isWin ? "server.exe" : "server");
+var resoucesDir = isDev ? path.join(__dirname, "..") : path.join(__dirname, "..", "..");
+const serverExecFile = path.join(resoucesDir, "extra", isWin ? "server.exe" : "server");
 
 // Logging
 autoUpdater.logger = log;
@@ -54,6 +54,7 @@ function createWindow () {
 let nagomeExec;
 
 function executeNagome() {
+    log.info(resoucesDir);
     nagomeExec = execFile(serverExecFile, {cwd: resoucesDir},
         (error, stdout, stderr) => {
             electron.dialog.showErrorBox("Server Error", error?error:"" + stdout + stderr);
