@@ -63,20 +63,6 @@ function executeNagome() {
     );
 }
 
-// autoUpdater
-autoUpdater.on('checking-for-update', () => {
-    log.info('Checking for update...');
-});
-autoUpdater.on('update-available', (info) => {
-    log.info('Update available.');
-});
-autoUpdater.on('update-not-available', (info) => {
-    log.info('Update not available.');
-});
-autoUpdater.on('error', (err) => {
-    log.info('Error in auto-updater. ' + err);
-});
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
