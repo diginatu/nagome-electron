@@ -8,33 +8,52 @@ const BrowserWindow = electron.BrowserWindow;
 const isDev = require('electron-is-dev');
 
 const path = require('path');
-const url = require('url');
-const execFile = require('child_process').execFile;
+const spawn = require('child_process').spawn;
 const os = require('os');
+const readline = require('readline');
 
 const isWin = /^win/.test(os.platform());
-var resoucesDir = isDev ? path.join(__dirname, '..') : path.join(__dirname, '..', '..');
+let resoucesDir = isDev ? path.join(__dirname, '..') : path.join(__dirname, '..', '..');
 const serverExecFile = path.join(resoucesDir, 'extra', isWin ? 'server.exe' : 'server');
+let mainUIURL = '';
 
 // Logging
 autoUpdater.logger = log;
-autoUpdater.logger.transports.file.level = 'info';
+if (isDev) {
+    autoUpdater.logger.transports.file.level = 'debug';
+} else {
+    autoUpdater.logger.transports.file.level = 'info';
+}
 log.info('App starting...');
+
+function quitNow() {
+    mainWindow = null;
+    if (uiServerExec !== null) {
+        uiServerExec.stdin.end();
+        uiServerExec = null;
+    }
+    app.quit();
+}
+
+function showErrorBox(title, error) {
+    log.error(title + ': ' + error);
+    electron.dialog.showErrorBox(title,error);
+}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-function createWindow () {
+function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({width: 500, height: 800});
 
+    if (mainUIURL === '') {
+        showErrorBox('Open URL Error', 'Failed to get the server URL');
+        quitNow();
+    }
     // and load the index.html of the app.
-    mainWindow.loadURL(url.format({
-        pathname: '/localhost:8753/app/index.html',
-        protocol: 'http:',
-        slashes: true
-    }));
+    mainWindow.loadURL(mainUIURL);
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
@@ -48,19 +67,28 @@ function createWindow () {
     });
 }
 
-let nagomeExec;
+let uiServerExec;
 
-function executeNagome() {
-    log.info('Resouce directory: ' + resoucesDir);
-    nagomeExec = execFile(serverExecFile, {cwd: resoucesDir},
-        (error, stdout, stderr) => {
-            if (error) {
-                electron.dialog.showErrorBox('Server Error', error + stdout + stderr);
-            } else if(stderr != '') {
-                electron.dialog.showErrorBox('Server Error', error + stdout + stderr);
-            }
+function executeUIServer() {
+    log.debug('Resouce directory: ' + resoucesDir);
+    uiServerExec = spawn(serverExecFile, {cwd: resoucesDir});
+
+    let errorLogs = '';
+
+    uiServerExec.on('close', (code) => {
+        if (code !== 0) {
+            showErrorBox('Nagome server Error', `ps process exited with code ${code}`);
+            quitNow();
         }
-    );
+        if (errorLogs !== '') {
+            showErrorBox('Server Error', errorLogs);
+            quitNow();
+        }
+    });
+
+    uiServerExec.stderr.on('data', function(buf) {
+        errorLogs += buf;
+    });
 }
 
 // This method will be called when Electron has finished
@@ -68,14 +96,31 @@ function executeNagome() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', function() {
     autoUpdater.checkForUpdatesAndNotify();
-    executeNagome();
-    createWindow();
+    executeUIServer();
+
+    const rl = readline.createInterface({
+        input: uiServerExec.stdout
+    });
+
+    rl.on('line', (line) => {
+        log.info(`Nagome server stdout: ${line}`);
+        if (mainUIURL === '') {
+            if (line.startsWith('http')) {
+                mainUIURL = line;
+
+                createWindow();
+            } else {
+                showErrorBox('Nagome server error', 'Failed to get URL');
+                quitNow();
+            }
+        }
+    });
 });
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
-    nagomeExec.stdin.end();
-    nagomeExec = null;
+    uiServerExec.stdin.end();
+    uiServerExec = null;
 
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
@@ -90,8 +135,8 @@ app.on('activate', function() {
     if (mainWindow === null) {
         createWindow();
     }
-    if (nagomeExec === null) {
-        executeNagome();
+    if (uiServerExec === null) {
+        executeUIServer();
     }
 });
 
