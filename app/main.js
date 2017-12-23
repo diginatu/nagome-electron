@@ -16,7 +16,6 @@ const isWin = /^win/.test(os.platform());
 let resoucesDir = isDev ? path.join(__dirname, '..') : path.join(__dirname, '..', '..');
 const serverExecFile = path.join(resoucesDir, 'extra', isWin ? 'server.exe' : 'server');
 const uiServerArgs = ['-c', isDev ? './server_config_dev.json' : './server_config.json'];
-let mainUIURL = '';
 
 // Logging
 autoUpdater.logger = log;
@@ -45,7 +44,7 @@ function showErrorBox(title, error) {
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-function createWindow() {
+function createWindow(mainUIURL) {
     // Create the browser window.
     mainWindow = new BrowserWindow({width: 500, height: 800});
 
@@ -55,10 +54,6 @@ function createWindow() {
         electron.shell.openExternal(url);
     });
 
-    if (mainUIURL === '') {
-        showErrorBox('Open URL Error', 'Failed to get the server URL');
-        quitNow();
-    }
     // and load the index.html of the app.
     mainWindow.loadURL(mainUIURL);
 
@@ -109,11 +104,9 @@ app.on('ready', function() {
 
     rl.on('line', (line) => {
         log.info(`Nagome server stdout: ${line}`);
-        if (mainUIURL === '') {
+        if (mainWindow === null) {
             if (line.startsWith('http')) {
-                mainUIURL = line;
-
-                createWindow();
+                createWindow(line);
             } else {
                 showErrorBox('Nagome server error', 'Failed to get URL');
                 quitNow();
