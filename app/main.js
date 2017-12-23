@@ -49,6 +49,12 @@ function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({width: 500, height: 800});
 
+    // Open in browser instead of create a new window
+    mainWindow.webContents.on('new-window', (event, url) => {
+        event.preventDefault();
+        electron.shell.openExternal(url);
+    });
+
     if (mainUIURL === '') {
         showErrorBox('Open URL Error', 'Failed to get the server URL');
         quitNow();
