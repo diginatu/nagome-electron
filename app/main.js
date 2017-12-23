@@ -15,6 +15,7 @@ const readline = require('readline');
 const isWin = /^win/.test(os.platform());
 let resoucesDir = isDev ? path.join(__dirname, '..') : path.join(__dirname, '..', '..');
 const serverExecFile = path.join(resoucesDir, 'extra', isWin ? 'server.exe' : 'server');
+const uiServerArgs = ['-c', isDev ? './server_config_dev.json' : './server_config.json'];
 let mainUIURL = '';
 
 // Logging
@@ -71,7 +72,7 @@ let uiServerExec;
 
 function executeUIServer() {
     log.debug('Resouce directory: ' + resoucesDir);
-    uiServerExec = spawn(serverExecFile, {cwd: resoucesDir});
+    uiServerExec = spawn(serverExecFile, uiServerArgs, {cwd: resoucesDir});
 
     let errorLogs = '';
 
