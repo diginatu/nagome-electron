@@ -79,11 +79,9 @@ function executeUIServer() {
     uiServerExec.on('close', (code) => {
         if (code !== 0) {
             showErrorBox('Nagome server Error', `ps process exited with code ${code}`);
-            quitNow();
         }
-        if (errorLogs !== '') {
+        if (isDev && errorLogs !== '') {
             showErrorBox('Server Error', errorLogs);
-            quitNow();
         }
     });
 
