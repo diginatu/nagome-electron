@@ -42,7 +42,7 @@ function showErrorBox(title, error) {
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow = null;
 
 function createWindow(mainUIURL) {
     // Create the browser window.
@@ -84,6 +84,7 @@ function executeUIServer() {
         if (isDev && errorLogs !== '') {
             showErrorBox('Server Error', errorLogs);
         }
+        quitNow();
     });
 
     uiServerExec.stderr.on('data', function(buf) {
@@ -107,9 +108,6 @@ app.on('ready', function() {
         if (mainWindow === null) {
             if (line.startsWith('http')) {
                 createWindow(line);
-            } else {
-                showErrorBox('Nagome server error', 'Failed to get URL');
-                quitNow();
             }
         }
     });
