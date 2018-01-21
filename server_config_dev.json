@@ -5,7 +5,7 @@
     "nagome_exec": [
         "./extra/nagome",
         "-y", "./extra/webui/plugin.yml",
-        "-savepath", "./nagome_config",
+        "-savepath", "./nagome_config_dev",
         "-p", "0"
     ],
     "app_mode" : true
