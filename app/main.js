@@ -46,7 +46,7 @@ let mainWindow = null;
 
 function createWindow(mainUIURL) {
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 500, height: 800});
+    mainWindow = new BrowserWindow({width: 500, height: 800, icon: path.join(__dirname, '..', 'images', 'icon.png')});
 
     // Open in browser instead of create a new window
     mainWindow.webContents.on('new-window', (event, url) => {
