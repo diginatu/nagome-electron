@@ -13,7 +13,8 @@
         "files": [
             "app/**/*",
             "node_modules/**/*",
-            "package.json"
+            "package.json",
+            "images/icon.png"
         ],
         "directories": {
             "buildResources": "resources"
@@ -108,12 +109,12 @@
     ],
     "devDependencies": {
         "download-github-release": "^0.3.2",
-        "electron": "~1.7.8",
-        "electron-builder": "^19.45.5"
+        "electron": "~1.7.12",
+        "electron-builder": "^19.55.3"
     },
     "dependencies": {
         "electron-is-dev": "^0.3.0",
-        "electron-log": "^2.2.11",
-        "electron-updater": "^2.16.1"
+        "electron-log": "^2.2.14",
+        "electron-updater": "^2.20.1"
     }
 }
