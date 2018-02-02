@@ -37,9 +37,10 @@ Publish
 -------
 
 ```
-# increase version number in package.json
+# Increase version number in package.json
 export GH_TOKEN="..."
 yarn run release
+# Publish the release in Github
 ```
 
 ### Package only
