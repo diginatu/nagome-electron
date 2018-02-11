@@ -1,15 +1,20 @@
-const ipcRenderer = require('electron').ipcRenderer;
+const ipc = require('electron').ipcRenderer;
 const {remote} = require('electron');
 const {Menu} = remote;
 
 const webview = document.getElementById('webview');
 
-ipcRenderer.on('main-ui-url', (e, url) => {
+ipc.on('main-ui-url', (e, url) => {
     webview.src = url;
 });
 
 webview.addEventListener('page-title-updated', (e) => {
     document.title = e.title;
+});
+
+webview.addEventListener('new-window', (e) => {
+    event.preventDefault();
+    ipc.send('new-window', e.url);
 });
 
 // Context menu

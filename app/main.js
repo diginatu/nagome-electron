@@ -1,5 +1,6 @@
 const autoUpdater = require('electron-updater').autoUpdater;
 const electron = require('electron');
+const ipc = require('electron').ipcMain;
 const log = require('electron-log');
 const isDev = require('electron-is-dev');
 const path = require('path');
@@ -49,9 +50,8 @@ function createWindow(mainUIURL) {
     // Create the browser window.
     mainWindow = new BrowserWindow({width: 500, height: 800, icon: path.join(__dirname, '..', 'images', 'icon.png')});
 
-    // Open in browser instead of create a new window
-    mainWindow.webContents.on('new-window', (event, url) => {
-        event.preventDefault();
+    // Open in external browser
+    ipc.on('new-window', (e, url) => {
         electron.shell.openExternal(url);
     });
 
