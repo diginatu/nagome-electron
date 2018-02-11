@@ -1,19 +1,20 @@
 const autoUpdater = require('electron-updater').autoUpdater;
 const electron = require('electron');
 const log = require('electron-log');
-// Module to control application life.
-const app = electron.app;
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
 const isDev = require('electron-is-dev');
-
 const path = require('path');
+const url = require('url');
 const spawn = require('child_process').spawn;
 const os = require('os');
 const readline = require('readline');
 
+// Module to control application life.
+const app = electron.app;
+// Module to create native browser window.
+const BrowserWindow = electron.BrowserWindow;
+
 const isWin = /^win/.test(os.platform());
-let resoucesDir = isDev ? path.join(__dirname, '..') : path.join(__dirname, '..', '..');
+const resoucesDir = isDev ? path.join(__dirname, '..') : path.join(__dirname, '..', '..');
 const serverExecFile = path.join(resoucesDir, 'extra', isWin ? 'server.exe' : 'server');
 const uiServerArgs = ['-c', isDev ? './server_config_dev.json' : './server_config.json'];
 
@@ -55,10 +56,18 @@ function createWindow(mainUIURL) {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL(mainUIURL);
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'index.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    mainWindow.webContents.on('did-finish-load', function() {
+        mainWindow.webContents.send('main-ui-url', mainUIURL);
+    });
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    //mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {

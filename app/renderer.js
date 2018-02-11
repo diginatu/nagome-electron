@@ -1,3 +1,29 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
+const ipcRenderer = require('electron').ipcRenderer;
+const {remote} = require('electron');
+const {Menu} = remote;
+
+const webview = document.getElementById('webview');
+
+ipcRenderer.on('main-ui-url', (e, url) => {
+    webview.src = url;
+});
+
+webview.addEventListener('page-title-updated', (e) => {
+    document.title = e.title;
+});
+
+// Context menu
+const template = [
+    { label: 'Undo', accelerator: 'CmdOrCtrl+Z', role: 'undo' },
+    { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', role: 'redo' },
+    { type: 'separator' },
+    { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
+    { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
+    { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+    { label: 'Select All', accelerator: 'CmdOrCtrl+A', role: 'selectall' }
+];
+const menu = Menu.buildFromTemplate(template);
+window.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    menu.popup(remote.getCurrentWindow());
+}, false);
