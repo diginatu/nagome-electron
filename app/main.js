@@ -34,7 +34,6 @@ function quitNow() {
         uiServerExec.stdin.end();
         uiServerExec = null;
     }
-    app.quit();
 }
 
 function showErrorBox(title, error) {
@@ -96,6 +95,10 @@ function executeUIServer() {
         quitNow();
     });
 
+    uiServerExec.on('exit', () => {
+        app.quit();
+    });
+
     uiServerExec.stderr.on('data', function(buf) {
         errorLogs += buf;
     });
@@ -124,10 +127,14 @@ app.on('ready', function() {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
-    uiServerExec.stdin.end();
-    uiServerExec = null;
+    quitNow();
+});
 
-    app.quit();
+// Fasten app quit
+app.on('will-quit', function() {
+    log.info('will-quite');
+    quitNow();
+    event.preventDefault();
 });
 
 // In this file you can include the rest of your app's specific main process
