@@ -132,7 +132,6 @@ app.on('window-all-closed', function() {
 
 // Fasten app quit
 app.on('will-quit', function() {
-    log.info('will-quite');
     quitNow();
     event.preventDefault();
 });
