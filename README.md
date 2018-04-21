@@ -5,11 +5,8 @@ Electron UI plugin of [Nagome](https://github.com/diginatu/nagome) which is Nico
 
 This repository packages Nagome Web UI from following repositories.
 
-* [Nagome](https://github.com/diginatu/nagome)
-* [Nagome Web UI](https://github.com/diginatu/nagome-webui)
-* [Nagome Web App Server](https://github.com/diginatu/nagome-webapp_server)
-
 #### License [MIT](LICENSE)
+
 
 Download
 --------
@@ -29,14 +26,31 @@ nagome-electron-setup-[version].exe | Windows Installer
 Develop
 -------
 
-```
+``` sh
+# install dependencies
 yarn
+# launch the app
+yarn start
 ```
+
+### Project relationship
+
+First, Nagome-electron, this app, spawns `Nagome Web App Server` that spawns Nagome CLI and serve the static web page app packaged in this electron app.
+And then Nagome-electron shows the web page.
+The web page communicate with Nagome CLI via `Nagome Web App Server` using WebSocket.
+
+* Nagome-electron: electron app
+    * [Nagome Web App Server](https://github.com/diginatu/nagome-webapp_server): server (CLI)
+        * [Nagome](https://github.com/diginatu/nagome): server (CLI)
+        * [Nagome Web UI](https://github.com/diginatu/nagome-webui): static web app
+
+![Relationship diagram](./relationship_diagram.svg)
+
 
 Publish
 -------
 
-```
+``` sh
 # Increase version number in package.json
 export GH_TOKEN="..."
 yarn run release

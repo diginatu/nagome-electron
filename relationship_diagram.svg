@@ -1,0 +1,43 @@
+<svg width="166.26mm" height="92.748mm" version="1.1" viewBox="0 0 166.26 92.748" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <marker id="marker15263" overflow="visible" orient="auto">
+   <path transform="matrix(.8 0 0 .8 10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#d20000" fill-rule="evenodd" stroke="#d20000" stroke-width="1pt"/>
+  </marker>
+  <marker id="marker15187" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#d20000" fill-rule="evenodd" stroke="#d20000" stroke-width="1pt"/>
+  </marker>
+  <marker id="marker10094" overflow="visible" orient="auto">
+   <path transform="matrix(.8 0 0 .8 10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#d20000" fill-rule="evenodd" stroke="#d20000" stroke-width="1pt"/>
+  </marker>
+  <marker id="marker8292" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#d20000" fill-rule="evenodd" stroke="#d20000" stroke-width="1pt"/>
+  </marker>
+  <marker id="Arrow1Lstart" overflow="visible" orient="auto">
+   <path transform="matrix(.8 0 0 .8 10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#d20000" fill-rule="evenodd" stroke="#d20000" stroke-width="1pt"/>
+  </marker>
+  <marker id="Arrow1Lend" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill-rule="evenodd" stroke="#000" stroke-width="1pt"/>
+  </marker>
+  <marker id="Arrow1Lend-3" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#d20000" fill-rule="evenodd" stroke="#d20000" stroke-width="1pt"/>
+  </marker>
+  <marker id="Arrow1Lend-5" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill-rule="evenodd" stroke="#000" stroke-width="1pt"/>
+  </marker>
+ </defs>
+ <text x="42.749111" y="75.138206" fill="#000000" font-family="sans-serif" font-size="7px" letter-spacing="0px" stroke-width=".16" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="42.749111" y="75.138206" stroke-width=".16">Nagome</tspan></text>
+ <text x="14.249293" y="46.605011" fill="#000000" font-family="sans-serif" font-size="7px" letter-spacing="0px" stroke-width=".16" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="14.249293" y="46.605011" stroke-width=".16">Nagome Web App Server</tspan></text>
+ <text x="52.05827" y="15.452839" fill="#000000" font-family="sans-serif" font-size="7px" letter-spacing="0px" stroke-width=".16" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="52.05827" y="15.452839" stroke-width=".16">Nagome-electron</tspan></text>
+ <text x="99.212967" y="75.248589" fill="#000000" font-family="sans-serif" font-size="7px" letter-spacing="0px" stroke-width=".16" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="99.212967" y="75.248589" stroke-width=".16">Web page app</tspan></text>
+ <path d="m74.088 18.698-13.803 20.18" fill="none" marker-end="url(#Arrow1Lend)" stroke="#000" stroke-width=".17971"/>
+ <path d="m89.79 49.562-19.099 18.116" fill="none" marker-end="url(#Arrow1Lend-3)" marker-start="url(#Arrow1Lstart)" stroke="#d20000" stroke-dasharray="1.07824548, 1.07824548" stroke-width=".17971"/>
+ <path d="m53.533 49.562-0.06859 18.116" fill="none" marker-end="url(#Arrow1Lend-5)" stroke="#000" stroke-width=".17971"/>
+ <path d="m112.39 67.678-8.6261-18.116" fill="none" marker-end="url(#marker8292)" marker-start="url(#marker10094)" stroke="#d20000" stroke-dasharray="1.07824548, 1.07824548" stroke-width=".17971"/>
+ <text x="111.45274" y="61.000702" fill="#000000" font-family="sans-serif" font-size="7px" letter-spacing="0px" stroke-width=".16" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="111.45274" y="61.000702" font-size="5px" stroke-width=".16">WebSocket</tspan></text>
+ <text x="84.727936" y="60.957291" fill="#000000" font-family="sans-serif" font-size="7px" letter-spacing="0px" stroke-width=".16" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="84.727936" y="60.957291" font-size="5px" stroke-width=".16">TCP</tspan></text>
+ <text x="46.22485" y="29.584278" fill="#000000" font-family="sans-serif" font-size="7px" letter-spacing="0px" stroke-width=".16" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="46.22485" y="29.584278" font-size="5px" stroke-width=".16">Spawn</tspan></text>
+ <text x="33.868687" y="60.4786" fill="#000000" font-family="sans-serif" font-size="7px" letter-spacing="0px" stroke-width=".16" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="33.868687" y="60.4786" font-size="5px" stroke-width=".16">Spawn</tspan></text>
+ <path d="m116.84 13.501h39.329v69.157h-146.08v-69.157h39.657" fill="none" stroke="#000" stroke-dasharray="1.43721666,1.43721666" stroke-width=".17965"/>
+ <path d="m98.221 18.698 0.0619 20.18" fill="none" marker-end="url(#marker15187)" marker-start="url(#marker15263)" stroke="#d20000" stroke-dasharray="1.07824551, 1.07824551" stroke-width=".17971"/>
+ <text x="100.40938" y="30.065388" fill="#000000" font-family="sans-serif" font-size="5px" letter-spacing="0px" stroke-width=".26458" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="100.40938" y="30.065388" stroke-width=".26458">HTTP</tspan></text>
+</svg>
