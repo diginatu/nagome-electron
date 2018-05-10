@@ -14,9 +14,9 @@ mkdir -p $RESOURCEDIR
 cp -r $TMPDIR/app $RESOURCEDIR/webui
 
 for system in ${SYSTEMS[@]}; do
-    appendexe=$(echo $system | sed -e '/windows/! d ; /windows/c\.exe')
-    os=$(echo $system | sed -e '/linux/c\linux' -e '/darwin/c\mac' -e '/windows/c\win')
-    arch=$(echo $system | sed -e '/amd64/c\x64')
+    appendexe=$(echo $system | sed -e '/windows/!d' -e '/windows/s/.*/.exe/')
+    os=$(echo $system | sed -e '/linux/s/.*/linux/' -e '/darwin/s/.*/mac/' -e '/windows/s/.*/win/')
+    arch=$(echo $system | sed -e '/amd64/s/.*/x64/')
     echo "Putting binaries of $system as \"$os $arch\""
 
     systemdir=$RESOURCEDIR/system/$os/$arch
