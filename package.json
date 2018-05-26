@@ -1,6 +1,6 @@
 {
     "name": "nagome-electron",
-    "version": "0.2.3",
+    "version": "1.0.1",
     "description": "Electron packege of Nagome Web UI",
     "author": {
         "name": "Diginatu",
@@ -109,12 +109,12 @@
     ],
     "devDependencies": {
         "download-github-release": "^0.3.2",
-        "electron": "~1.8.4",
-        "electron-builder": "^20.8.1"
+        "electron": "~2.0.2",
+        "electron-builder": "^20.15.1"
     },
     "dependencies": {
         "electron-is-dev": "^0.3.0",
         "electron-log": "^2.2.14",
-        "electron-updater": "^2.20.1"
+        "electron-updater": "^2.21.10"
     }
 }
