@@ -91,6 +91,7 @@
         }
     },
     "scripts": {
+        "download": "./scripts/download_binaries.sh",
         "start": "electron .",
         "build-current-dir": "./scripts/release.sh --dir",
         "build-dir": "./scripts/release.sh -wlm --dir",

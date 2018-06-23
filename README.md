@@ -27,9 +27,11 @@ Develop
 -------
 
 ``` sh
-# install dependencies
+# Install dependencies
 yarn
-# launch the app
+# Download assets
+yarn download
+# Launch
 yarn start
 ```
 
