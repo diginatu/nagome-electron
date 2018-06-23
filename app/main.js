@@ -133,7 +133,6 @@ app.on('window-all-closed', function() {
 // Fasten app quit
 app.on('will-quit', function() {
     quitNow();
-    event.preventDefault();
 });
 
 // In this file you can include the rest of your app's specific main process
