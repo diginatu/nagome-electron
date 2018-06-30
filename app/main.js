@@ -13,6 +13,8 @@ const readline = require('readline');
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+// Module to create native application menus and context menus.
+const Menu = electron.Menu;
 
 const isWin = /^win/.test(os.platform());
 const resoucesDir = isDev ? path.join(__dirname, '..') : path.join(__dirname, '..', '..');
@@ -123,6 +125,34 @@ app.on('ready', function() {
             }
         }
     });
+
+    const template = [{
+        label: 'Edit',
+        submenu: [
+            { role: 'undo' },
+            { role: 'redo' },
+            { type: 'separator' },
+            { role: 'cut' },
+            { role: 'copy' },
+            { role: 'paste' },
+            { role: 'selectall' }
+        ]
+    }];
+
+    if (process.platform === 'darwin') {
+        template.unshift({
+            label: app.getName(),
+            submenu: [
+                {role: 'about'},
+                {type: 'separator'},
+                {role: 'services', submenu: []},
+                {type: 'separator'},
+                {role: 'quit'}
+            ]
+        });
+    }
+
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 });
 
 // Quit when all windows are closed.
