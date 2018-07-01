@@ -151,6 +151,13 @@ app.on('ready', function() {
             { type: 'separator' },
             { role: 'togglefullscreen' }
         ]
+    },
+    {
+        role: 'window',
+        submenu: [
+            { role: 'minimize' },
+            { role: 'close' }
+        ]
     }];
 
     if (process.platform === 'darwin') {
@@ -164,6 +171,14 @@ app.on('ready', function() {
                 {role: 'quit'}
             ]
         });
+
+        template[3].submenu = [
+            { role: 'close' },
+            { role: 'minimize' },
+            { role: 'zoom' },
+            { type: 'separator' },
+            { role: 'front' }
+        ]
     }
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
