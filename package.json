@@ -111,11 +111,11 @@
     "devDependencies": {
         "download-github-release": "^0.3.2",
         "electron": "~2.0.3",
-        "electron-builder": "^20.15.1"
+        "electron-builder": "^20.18.0"
     },
     "dependencies": {
         "electron-is-dev": "^0.3.0",
-        "electron-log": "^2.2.15",
-        "electron-updater": "^2.21.10"
+        "electron-log": "^2.2.16",
+        "electron-updater": "^2.23.3"
     }
 }
