@@ -13,6 +13,8 @@ const readline = require('readline');
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+// Module to create native application menus and context menus.
+const Menu = electron.Menu;
 
 const isWin = /^win/.test(os.platform());
 const resoucesDir = isDev ? path.join(__dirname, '..') : path.join(__dirname, '..', '..');
@@ -123,6 +125,57 @@ app.on('ready', function() {
             }
         }
     });
+
+    if (process.platform === 'darwin') {
+        const template = [{
+            label: app.getName(),
+            submenu: [
+                {role: 'about'},
+                {type: 'separator'},
+                {role: 'services', submenu: []},
+                {type: 'separator'},
+                {role: 'quit'}
+            ]
+        },
+        {
+            label: 'Edit',
+            submenu: [
+                { role: 'undo' },
+                { role: 'redo' },
+                { type: 'separator' },
+                { role: 'cut' },
+                { role: 'copy' },
+                { role: 'paste' },
+                { role: 'selectall' }
+            ]
+        },
+        {
+            label: 'View',
+            submenu: [
+                { role: 'reload' },
+                { role: 'forcereload' },
+                { role: 'toggledevtools' },
+                { type: 'separator' },
+                { role: 'resetzoom' },
+                { role: 'zoomin' },
+                { role: 'zoomout' },
+                { type: 'separator' },
+                { role: 'togglefullscreen' }
+            ]
+        },
+        {
+            role: 'window',
+            submenu: [
+                { role: 'close' },
+                { role: 'minimize' },
+                { role: 'zoom' },
+                { type: 'separator' },
+                { role: 'front' }
+            ]
+        }];
+
+        Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+    }
 });
 
 // Quit when all windows are closed.
