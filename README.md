@@ -53,7 +53,7 @@ Publish
 -------
 
 ``` sh
-# Increase version number in package.json
+# Increase version number in package.json and commit
 export GH_TOKEN="..."
 yarn run release
 # Publish the release in Github
