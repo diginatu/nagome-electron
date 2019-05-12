@@ -1,18 +1,7 @@
-const ipc = require('electron').ipcRenderer;
 const {remote} = require('electron');
-const {Menu, MenuItem} = remote;
+const {Menu} = remote;
 
 window.onload = function() {
-    window.addEventListener('page-title-updated', (e) => {
-        console.log("page-title-updated: view");
-        document.title = e.title;
-    });
-
-    window.addEventListener('new-window', (e) => {
-        event.preventDefault();
-        ipc.send('new-window', e.url);
-    });
-
     // Context menu
     const template = [
         { label: 'Undo', accelerator: 'CmdOrCtrl+Z', role: 'undo' },
@@ -28,4 +17,4 @@ window.onload = function() {
         e.preventDefault();
         menu.popup(remote.getCurrentWindow());
     }, false);
-};
+}
