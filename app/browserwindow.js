@@ -1,19 +1,14 @@
 const ipc = require('electron').ipcRenderer;
 const {remote} = require('electron');
-const {Menu} = remote;
+const {Menu, MenuItem} = remote;
 
 window.onload = function() {
-    const webview = document.getElementById('webview');
-
-    ipc.on('main-ui-url', (e, url) => {
-        webview.src = url;
-    });
-
-    webview.addEventListener('page-title-updated', (e) => {
+    window.addEventListener('page-title-updated', (e) => {
+        console.log("page-title-updated: view");
         document.title = e.title;
     });
 
-    webview.addEventListener('new-window', (e) => {
+    window.addEventListener('new-window', (e) => {
         event.preventDefault();
         ipc.send('new-window', e.url);
     });
@@ -33,4 +28,4 @@ window.onload = function() {
         e.preventDefault();
         menu.popup(remote.getCurrentWindow());
     }, false);
-}
+};

@@ -11,10 +11,7 @@ const readline = require('readline');
 
 // Module to control application life.
 const app = electron.app;
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
-// Module to create native application menus and context menus.
-const Menu = electron.Menu;
+const { BrowserWindow, Menu } = electron;
 
 const isWin = /^win/.test(os.platform());
 const resoucesDir = isDev ? path.join(__dirname, '..') : path.join(__dirname, '..', '..');
@@ -49,7 +46,14 @@ let mainWindow = null;
 
 function createWindow(mainUIURL) {
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 500, height: 800, icon: path.join(__dirname, '..', 'images', 'icon.png')});
+    mainWindow = new BrowserWindow({
+        width: 500, height: 800,
+        icon: path.join(__dirname, '..', 'images', 'icon.png'),
+        webPreferences: {
+            preload: path.join(__dirname, 'renderer.js'),
+            webviewTag: true
+        }
+    });
 
     // Open in external browser
     ipc.on('new-window', (e, url) => {
