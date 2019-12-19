@@ -7,6 +7,7 @@ This repository packages Nagome Web UI from following repositories.
 
 #### License [MIT](LICENSE)
 
+![Screenshots](./screenshots.png)
 
 Download
 --------
